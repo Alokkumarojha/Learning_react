@@ -44,7 +44,7 @@ function Header() {
               </li>
               <li>
                 <a href="#" className="nav-link px-2 text-white">
-                  About us
+                  About About
                 </a>
               </li>
             </ul>
