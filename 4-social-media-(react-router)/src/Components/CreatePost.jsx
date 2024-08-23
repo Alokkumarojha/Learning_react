@@ -1,8 +1,11 @@
 import React, { useContext, useRef } from "react";
 import { PostList } from "../Store/post-list-store";
+import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
   const { addPost } = useContext(PostList);
+  const navigate = useNavigate();
+
   const userIdElement = useRef();
   const titleElement = useRef();
   const userBodyElement = useRef();
@@ -15,13 +18,30 @@ function CreatePost() {
     const postTitle = titleElement.current.value;
     const postBody = userBodyElement.current.value;
     const reactions = reactionsElement.current.value;
-    const tags = tagsElement.current.value.split(/\s+/);
+    const tags = tagsElement.current.value.split(" ");
 
     userIdElement.current.value = "";
     titleElement.current.value = "";
     userBodyElement.current.value = "";
     reactionsElement.current.value = "";
     tagsElement.current.value = "";
+
+    fetch("https://dummyjson.com/posts/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: postTitle,
+        body: postBody,
+        reactions: reactions,
+        userId: userId,
+        tags: tags,
+      }),
+    })
+      .then((res) => res.json())
+      .then((post) => {
+        addPost(post);
+        navigate("/");
+      });
 
     if (!userId || !postTitle || !postBody || isNaN(reactions)) {
       alert("Please fill in all fields correctly."); // Basic validation

@@ -1,13 +1,12 @@
+
 import React from "react";
 
-function LoadingSpinner() {
+const LoadingSpinner = () => {
   return (
-    <div className="text-center">
-      <div className="spinner-border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
+    <div className="spinner-border" role="status">
+      <span className="visually-hidden">Loading...</span>
     </div>
   );
-}
+};
 
 export default LoadingSpinner;
